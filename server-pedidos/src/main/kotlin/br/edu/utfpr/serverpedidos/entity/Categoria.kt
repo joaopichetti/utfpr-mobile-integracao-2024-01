@@ -10,6 +10,6 @@ class Categoria(
     @Id
     @GeneratedValue
     var id: Int = 0,
-    @field:NotBlank(message = "O nome é obrigatório")
+    @field:NotBlank(message = "{nome.notblank}")
     var nome: String = ""
 )

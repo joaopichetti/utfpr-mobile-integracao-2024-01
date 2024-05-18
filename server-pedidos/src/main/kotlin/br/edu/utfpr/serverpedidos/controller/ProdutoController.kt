@@ -1,7 +1,7 @@
 package br.edu.utfpr.serverpedidos.controller
 
-import br.edu.utfpr.serverpedidos.entity.Categoria
-import br.edu.utfpr.serverpedidos.repository.CategoriaRepository
+import br.edu.utfpr.serverpedidos.entity.Produto
+import br.edu.utfpr.serverpedidos.repository.ProdutoRepository
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -15,40 +15,38 @@ import org.springframework.web.bind.annotation.RestController
 import kotlin.jvm.optionals.getOrNull
 
 @RestController
-@RequestMapping("/categorias")
-class CategoriaController(
-    private val categoriaRepository: CategoriaRepository
+@RequestMapping("/produtos")
+class ProdutoController(
+    private val produtoRepository: ProdutoRepository
 ) {
 
     @GetMapping
-    fun list(@RequestParam nome: String?): List<Categoria> {
-        nome?.let {
-            return categoriaRepository.findByNomeContainsIgnoreCase(it)
+    fun list(@RequestParam query: String?): List<Produto> {
+        query?.let {
+            return produtoRepository.findByQuery(it)
         }
-        return categoriaRepository.findAll()
+        return produtoRepository.findAll()
     }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Int): ResponseEntity<Categoria> {
-        val categoria = categoriaRepository.findById(id).getOrNull()
+    fun findById(@PathVariable(name = "id") codigo: Int): ResponseEntity<Produto> {
+        val produto = produtoRepository.findById(codigo).getOrNull()
             ?: return ResponseEntity
                 .notFound()
                 .build()
-        return ResponseEntity.ok(categoria)
+        return ResponseEntity.ok(produto)
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Int): ResponseEntity<Unit> {
-        categoriaRepository.findById(id).getOrNull()?.let {
-            categoriaRepository.delete(it)
-        }
+        produtoRepository.deleteById(id)
         return ResponseEntity
             .noContent()
             .build()
     }
 
     @PostMapping
-    fun save(@Valid @RequestBody categoria: Categoria): Categoria {
-        return categoriaRepository.save(categoria)
+    fun save(@Valid @RequestBody produto: Produto): Produto {
+        return produtoRepository.save(produto)
     }
 }
