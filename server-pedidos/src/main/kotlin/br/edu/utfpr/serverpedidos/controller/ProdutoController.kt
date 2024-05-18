@@ -1,6 +1,6 @@
 package br.edu.utfpr.serverpedidos.controller
 
-import br.edu.utfpr.serverpedidos.entity.Produto
+import br.edu.utfpr.serverpedidos.controller.dto.ProdutoDTO
 import br.edu.utfpr.serverpedidos.repository.ProdutoRepository
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
@@ -21,20 +21,20 @@ class ProdutoController(
 ) {
 
     @GetMapping
-    fun list(@RequestParam query: String?): List<Produto> {
-        query?.let {
-            return produtoRepository.findByQuery(it)
-        }
-        return produtoRepository.findAll()
+    fun list(@RequestParam query: String?): List<ProdutoDTO> {
+        val produtos = query?.let {
+            produtoRepository.findByQuery(it)
+        } ?: produtoRepository.findAll()
+        return produtos.map { ProdutoDTO.fromEntity(it) }
     }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable(name = "id") codigo: Int): ResponseEntity<Produto> {
+    fun findById(@PathVariable(name = "id") codigo: Int): ResponseEntity<ProdutoDTO> {
         val produto = produtoRepository.findById(codigo).getOrNull()
             ?: return ResponseEntity
                 .notFound()
                 .build()
-        return ResponseEntity.ok(produto)
+        return ResponseEntity.ok(ProdutoDTO.fromEntity(produto))
     }
 
     @DeleteMapping("/{id}")
@@ -46,7 +46,8 @@ class ProdutoController(
     }
 
     @PostMapping
-    fun save(@Valid @RequestBody produto: Produto): Produto {
-        return produtoRepository.save(produto)
+    fun save(@Valid @RequestBody produto: ProdutoDTO): ProdutoDTO {
+        val produtoAtualizado = produtoRepository.save(produto.toEntity())
+        return ProdutoDTO.fromEntity(produtoAtualizado)
     }
 }

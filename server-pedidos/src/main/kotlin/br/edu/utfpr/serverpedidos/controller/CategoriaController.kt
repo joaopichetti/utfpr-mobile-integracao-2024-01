@@ -1,6 +1,6 @@
 package br.edu.utfpr.serverpedidos.controller
 
-import br.edu.utfpr.serverpedidos.entity.Categoria
+import br.edu.utfpr.serverpedidos.controller.dto.CategoriaDTO
 import br.edu.utfpr.serverpedidos.repository.CategoriaRepository
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
@@ -21,20 +21,20 @@ class CategoriaController(
 ) {
 
     @GetMapping
-    fun list(@RequestParam nome: String?): List<Categoria> {
-        nome?.let {
-            return categoriaRepository.findByNomeContainsIgnoreCase(it)
-        }
-        return categoriaRepository.findAll()
+    fun list(@RequestParam nome: String?): List<CategoriaDTO> {
+        val categorias = nome?.let {
+            categoriaRepository.findByNomeContainsIgnoreCase(it)
+        } ?: categoriaRepository.findAll()
+        return categorias.map { CategoriaDTO.fromEntity(it) }
     }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Int): ResponseEntity<Categoria> {
+    fun findById(@PathVariable id: Int): ResponseEntity<CategoriaDTO> {
         val categoria = categoriaRepository.findById(id).getOrNull()
             ?: return ResponseEntity
                 .notFound()
                 .build()
-        return ResponseEntity.ok(categoria)
+        return ResponseEntity.ok(CategoriaDTO.fromEntity(categoria))
     }
 
     @DeleteMapping("/{id}")
@@ -48,7 +48,8 @@ class CategoriaController(
     }
 
     @PostMapping
-    fun save(@Valid @RequestBody categoria: Categoria): Categoria {
-        return categoriaRepository.save(categoria)
+    fun save(@Valid @RequestBody categoria: CategoriaDTO): CategoriaDTO {
+        val categoriaAtualizada = categoriaRepository.save(categoria.toEntity())
+        return CategoriaDTO.fromEntity(categoriaAtualizada)
     }
 }
