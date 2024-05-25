@@ -4,9 +4,9 @@ import br.edu.utfpr.serverpedidos.entity.Categoria
 import jakarta.validation.constraints.NotBlank
 
 data class CategoriaDTO(
-    var id: Int = 0,
+    val id: Int = 0,
     @field:NotBlank(message = "{nome.notblank}")
-    var nome: String = ""
+    val nome: String = ""
 ) {
     fun toEntity(): Categoria = Categoria(
         id = this.id,

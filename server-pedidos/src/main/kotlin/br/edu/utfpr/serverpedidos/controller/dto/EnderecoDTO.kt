@@ -2,18 +2,20 @@ package br.edu.utfpr.serverpedidos.controller.dto
 
 import br.edu.utfpr.serverpedidos.entity.Cliente
 import br.edu.utfpr.serverpedidos.entity.Endereco
+import br.edu.utfpr.serverpedidos.util.validator.CEP
 import jakarta.validation.constraints.NotBlank
 
 data class EnderecoDTO(
     @field:NotBlank(message = "{cep.notblank}")
-    var cep: String = "",
+    @field:CEP
+    val cep: String = "",
     @field:NotBlank(message = "{logradouro.notblank}")
-    var logradouro: String = "",
-    var numero: Int = 0,
-    var complemento: String = "",
-    var bairro: String = "",
+    val logradouro: String = "",
+    val numero: Int = 0,
+    val complemento: String = "",
+    val bairro: String = "",
     @field:NotBlank(message = "{cidade.notblank}")
-    var cidade: String = ""
+    val cidade: String = ""
 ) {
     fun toEntity(cliente: Cliente): Endereco = Endereco(
         id = cliente.id,

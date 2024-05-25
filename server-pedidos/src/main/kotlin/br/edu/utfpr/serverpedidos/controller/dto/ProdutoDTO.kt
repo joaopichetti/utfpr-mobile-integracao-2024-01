@@ -8,14 +8,14 @@ import jakarta.validation.constraints.Size
 import java.math.BigDecimal
 
 data class ProdutoDTO(
-    var id: Int,
+    val id: Int,
     @field:NotBlank(message = "{nome.notblank}")
     @field:Size(max = 100, message = "{nome.size}")
-    var nome: String = "",
+    val nome: String = "",
     @field:Positive(message = "{preco.positive}")
-    var preco: BigDecimal = BigDecimal.ZERO,
+    val preco: BigDecimal = BigDecimal.ZERO,
     @field:NotNull(message = "{categoria.notnull}")
-    var categoria: CategoriaDTO? = null
+    val categoria: CategoriaDTO? = null
 ) {
     fun toEntity(): Produto = Produto(
         id = this.id,
