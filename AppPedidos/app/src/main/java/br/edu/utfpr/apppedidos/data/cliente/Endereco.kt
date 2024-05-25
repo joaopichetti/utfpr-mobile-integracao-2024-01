@@ -7,4 +7,6 @@ data class Endereco(
     val complemento: String = "",
     val bairro: String = "",
     val cidade: String = ""
-)
+) {
+    val descricao get(): String = "$logradouro, $numero, $cidade"
+}

@@ -3,4 +3,9 @@
     <string name="adicionar">Adicionar</string>
     <string name="clientes">Clientes</string>
     <string name="atualizar">Atualizar</string>
+    <string name="carregando_clientes">Carregando clientes</string>
+    <string name="erro_ao_carregar">Erro ao carregar</string>
+    <string name="erro_ao_carregar_clientes">Não foi possível carregar os clientes</string>
+    <string name="aguarde_um_momento_e_tente_novamente">Aguarde um momento e tente novamente</string>
+    <string name="tentar_novamente">Tentar novamente</string>
 </resources>
