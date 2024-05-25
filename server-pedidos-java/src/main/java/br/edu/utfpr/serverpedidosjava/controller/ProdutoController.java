@@ -25,16 +25,16 @@ public class ProdutoController {
     public List<ProdutoDTO> list(@RequestParam(name = "query") @Nullable String query) {
         List<Produto> produtos;
         if (Strings.isNotBlank(query)) {
-            produtos = produtoRepository.findByQuery(query);
+            produtos = this.produtoRepository.findByQuery(query);
         } else {
-            produtos = produtoRepository.findAll();
+            produtos = this.produtoRepository.findAll();
         }
         return produtos.stream().map(ProdutoDTO::fromEntity).toList();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoDTO> findById(@PathVariable(name = "id") Integer id) {
-        Produto produto = produtoRepository.findById(id).orElse(null);
+        Produto produto = this.produtoRepository.findById(id).orElse(null);
         if (produto == null) {
             return ResponseEntity.notFound().build();
         }
@@ -43,13 +43,13 @@ public class ProdutoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable(name = "id") Integer id) {
-        produtoRepository.deleteById(id);
+        this.produtoRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
     public ProdutoDTO save(@Valid @RequestBody ProdutoDTO produto) {
-        Produto produtoAtualizado = produtoRepository.save(produto.toEntity());
+        Produto produtoAtualizado = this.produtoRepository.save(produto.toEntity());
         return ProdutoDTO.fromEntity(produtoAtualizado);
     }
 }

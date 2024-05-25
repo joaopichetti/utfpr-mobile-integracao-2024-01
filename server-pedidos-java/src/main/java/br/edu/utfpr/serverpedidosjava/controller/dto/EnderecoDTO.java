@@ -2,19 +2,17 @@ package br.edu.utfpr.serverpedidosjava.controller.dto;
 
 import br.edu.utfpr.serverpedidosjava.entity.Cliente;
 import br.edu.utfpr.serverpedidosjava.entity.Endereco;
+import br.edu.utfpr.serverpedidosjava.util.validator.CEP;
 import jakarta.validation.constraints.NotBlank;
 
 public record EnderecoDTO(
-        @NotBlank(message = "{cep.notblank}")
-        String cep,
-        @NotBlank(message = "{logradouro.notblank}")
-        String logradouro,
+        @NotBlank(message = "{cep.notblank}") @CEP String cep,
+        @NotBlank(message = "{logradouro.notblank}") String logradouro,
         Integer numero,
         String complemento,
         String bairro,
-        @NotBlank(message = "{cidade.notblank}")
-        String cidade
-) {
+        @NotBlank(message = "{cidade.notblank}") String cidade) {
+
     public Endereco toEntity(Cliente cliente) {
         Endereco endereco = new Endereco();
         endereco.setId(cliente.getId());
@@ -35,7 +33,6 @@ public record EnderecoDTO(
                 endereco.getNumero(),
                 endereco.getComplemento(),
                 endereco.getBairro(),
-                endereco.getCidade()
-        );
+                endereco.getCidade());
     }
 }

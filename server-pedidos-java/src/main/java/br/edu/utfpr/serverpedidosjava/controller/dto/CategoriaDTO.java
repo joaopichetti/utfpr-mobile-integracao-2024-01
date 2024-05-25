@@ -5,9 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 
 public record CategoriaDTO(
         Integer id,
-        @NotBlank(message = "{nome.notblank}")
-        String nome
-) {
+        @NotBlank(message = "{nome.notblank}") String nome) {
+
     public Categoria toEntity() {
         Categoria categoria = new Categoria();
         categoria.setId(this.id);

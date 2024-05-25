@@ -21,7 +21,7 @@ public class ClienteController {
 
     @GetMapping
     public List<ClienteDTO> list() {
-        return clienteRepository
+        return this.clienteRepository
                 .findAll()
                 .stream()
                 .map(ClienteDTO::fromEntity)
@@ -30,7 +30,7 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDTO> findById(@PathVariable(name = "id") Integer id) {
-        Cliente cliente = clienteRepository.findById(id).orElse(null);
+        Cliente cliente = this.clienteRepository.findById(id).orElse(null);
         if (cliente == null) {
             return ResponseEntity.notFound().build();
         }
@@ -39,13 +39,13 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable(name = "id") Integer id) {
-        clienteRepository.deleteById(id);
+        this.clienteRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
     public ClienteDTO save(@Valid @RequestBody ClienteDTO cliente) {
-        Cliente clienteAtualizado = clienteRepository.save(cliente.toEntity());
+        Cliente clienteAtualizado = this.clienteRepository.save(cliente.toEntity());
         return ClienteDTO.fromEntity(clienteAtualizado);
     }
 }

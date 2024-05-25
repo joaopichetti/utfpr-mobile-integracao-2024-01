@@ -10,29 +10,30 @@ import java.math.BigDecimal;
 
 public record ProdutoDTO(
         Integer id,
-        @NotBlank(message = "{nome.notblank}")
-        @Size(max = 100, message = "{nome.size}")
-        String nome,
-        @Positive(message = "{preco.positive}")
-        BigDecimal preco,
-        @NotNull(message = "{categoria.notnull}")
-        CategoriaDTO categoria
-) {
+        @NotBlank(message = "{nome.notblank}") @Size(max = 100, message = "{nome.size}") String nome,
+        @Positive(message = "{preco.positive}") BigDecimal preco,
+        @NotNull(message = "{categoria.notnull}") CategoriaDTO categoria) {
+
     public Produto toEntity() {
         Produto produto = new Produto();
         produto.setId(this.id);
         produto.setNome(this.nome);
         produto.setPreco(this.preco);
-        produto.setCategoria(this.categoria.toEntity());
+        if (this.categoria != null) {
+            produto.setCategoria(this.categoria.toEntity());
+        }
         return produto;
     }
 
     public static ProdutoDTO fromEntity(Produto produto) {
+        CategoriaDTO categoriaDTO = null;
+        if (produto.getCategoria() != null) {
+            categoriaDTO = CategoriaDTO.fromEntity(produto.getCategoria());
+        }
         return new ProdutoDTO(
                 produto.getId(),
                 produto.getNome(),
                 produto.getPreco(),
-                CategoriaDTO.fromEntity(produto.getCategoria())
-        );
+                categoriaDTO);
     }
 }
