@@ -3,6 +3,8 @@ package br.edu.utfpr.serverpedidos.controller
 import br.edu.utfpr.serverpedidos.controller.dto.CategoriaDTO
 import br.edu.utfpr.serverpedidos.repository.CategoriaRepository
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -25,6 +27,14 @@ class CategoriaController(
         val categorias = nome?.let {
             categoriaRepository.findByNomeContainsIgnoreCase(it)
         } ?: categoriaRepository.findAll()
+        return categorias.map { CategoriaDTO.fromEntity(it) }
+    }
+
+    @GetMapping("/page")
+    fun paginar(@RequestParam nome: String?, pageable: Pageable): Page<CategoriaDTO> {
+        val categorias = nome?.let {
+            categoriaRepository.findByNomeContainsIgnoreCase(it, pageable)
+        } ?: categoriaRepository.findAll(pageable)
         return categorias.map { CategoriaDTO.fromEntity(it) }
     }
 

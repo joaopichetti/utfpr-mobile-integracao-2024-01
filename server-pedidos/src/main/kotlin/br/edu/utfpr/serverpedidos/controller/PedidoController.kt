@@ -3,6 +3,8 @@ package br.edu.utfpr.serverpedidos.controller
 import br.edu.utfpr.serverpedidos.controller.dto.PedidoDTO
 import br.edu.utfpr.serverpedidos.repository.PedidoRepository
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -22,6 +24,11 @@ class PedidoController(
     @GetMapping
     fun listar(): List<PedidoDTO> {
         return pedidoRepository.findAll().map { PedidoDTO.fromEntity(it) }
+    }
+
+    @GetMapping("/page")
+    fun paginar(pageable: Pageable): Page<PedidoDTO> {
+        return pedidoRepository.findAll(pageable).map { PedidoDTO.fromEntity(it) }
     }
 
     @GetMapping("/{id}")
