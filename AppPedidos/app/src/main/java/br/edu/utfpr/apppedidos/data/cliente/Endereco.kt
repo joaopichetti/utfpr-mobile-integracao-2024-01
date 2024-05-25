@@ -1,5 +1,8 @@
 package br.edu.utfpr.apppedidos.data.cliente
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Endereco(
     val cep: String = "",
     val logradouro: String = "",

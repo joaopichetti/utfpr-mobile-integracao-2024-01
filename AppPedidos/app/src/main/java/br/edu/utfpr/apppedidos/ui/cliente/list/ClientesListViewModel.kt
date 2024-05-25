@@ -1,5 +1,6 @@
 package br.edu.utfpr.apppedidos.ui.cliente.list
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,9 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.edu.utfpr.apppedidos.data.cliente.Cliente
 import br.edu.utfpr.apppedidos.data.cliente.Endereco
-import kotlinx.coroutines.delay
+import br.edu.utfpr.apppedidos.data.cliente.network.ApiClientes
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 data class ClientesListUiState(
     val loading: Boolean = false,
@@ -20,6 +20,7 @@ data class ClientesListUiState(
 }
 
 class ClientesListViewModel : ViewModel() {
+    private val tag: String = "ClientesListViewModel"
     var uiState: ClientesListUiState by mutableStateOf(ClientesListUiState())
 
     init {
@@ -32,16 +33,16 @@ class ClientesListViewModel : ViewModel() {
             hasError = false
         )
         viewModelScope.launch {
-            delay(2000)
-            val hasErrorLoading = Random.nextBoolean()
-            uiState = if (hasErrorLoading) {
+            uiState = try {
+                val clientes = ApiClientes.retrofitService.findAll()
                 uiState.copy(
-                    hasError = true,
+                    clientes = clientes,
                     loading = false
                 )
-            } else {
+            } catch (ex: Exception) {
+                Log.d(tag, "Erro ao carregar lista de clientes", ex)
                 uiState.copy(
-                    clientes = clientesFake,
+                    hasError = true,
                     loading = false
                 )
             }
