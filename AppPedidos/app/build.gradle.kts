@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.squareup.retrofit.converterKotlinx)
     implementation(libs.squareup.okhttp3)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import br.edu.utfpr.apppedidos.ui.cliente.list.ClientesListScreen
+import br.edu.utfpr.apppedidos.ui.AppPedidos
 import br.edu.utfpr.apppedidos.ui.theme.AppPedidosTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppPedidosTheme {
-                ClientesListScreen()
+                AppPedidos()
             }
         }
     }

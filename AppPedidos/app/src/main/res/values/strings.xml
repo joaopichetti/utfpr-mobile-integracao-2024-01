@@ -8,4 +8,16 @@
     <string name="erro_ao_carregar_clientes">Não foi possível carregar os clientes</string>
     <string name="aguarde_um_momento_e_tente_novamente">Aguarde um momento e tente novamente</string>
     <string name="tentar_novamente">Tentar novamente</string>
+    <string name="detalhes_do_cliente">Detalhes do Cliente</string>
+    <string name="voltar">Voltar</string>
+    <string name="editar">Editar</string>
+    <string name="remover">Remover</string>
+    <string name="carregando">Carregando</string>
+    <string name="erro_ao_carregar_registros">Não foi possível carregar os registros</string>
+    <string name="codigo">Código</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="atencao">Atenção</string>
+    <string name="confirmar_remover_cliente">Ao confirmar, esse cliente será removido e não poderá ser recuperado.</string>
+    <string name="erro_remover_cliente">Não foi possível remover o cliente. Aguarde um momento e tente novamente.</string>
 </resources>
