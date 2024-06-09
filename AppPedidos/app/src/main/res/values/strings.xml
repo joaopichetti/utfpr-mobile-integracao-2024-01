@@ -42,4 +42,6 @@
     <string name="cep_invalido">Informe um CEP válido</string>
     <string name="numero_obrigatorio">O número é obrigatório</string>
     <string name="erro_salvar_cliente">Não foi possível salvar o cliente. Aguarde um momento e tente novamente</string>
+    <string name="mensagem_retornada_do_servidor">A seguinte mensagem foi retornada do servidor</string>
+    <string name="ok">OK</string>
 </resources>

@@ -1,6 +1,7 @@
 package br.edu.utfpr.apppedidos.data.cliente.network
 
 import br.edu.utfpr.apppedidos.data.cliente.Cliente
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -18,5 +19,5 @@ interface ApiClientesService {
     suspend fun delete(@Path("id") id: Int)
 
     @POST("clientes")
-    suspend fun save(@Body cliente: Cliente): Cliente
+    suspend fun save(@Body cliente: Cliente): Response<Cliente>
 }

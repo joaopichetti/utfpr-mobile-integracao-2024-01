@@ -14,6 +14,8 @@ import br.edu.utfpr.apppedidos.data.cliente.Endereco
 import br.edu.utfpr.apppedidos.data.network.ApiService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
 
 data class FormField(
     val value: String = "",
@@ -51,7 +53,8 @@ data class ClienteFormUiState(
     val formState: FormState = FormState(),
     val isSaving: Boolean = false,
     val hasErrorSaving: Boolean = false,
-    val clienteSaved: Boolean = false
+    val clienteSaved: Boolean = false,
+    val apiValidationError: String = ""
 ) {
     val isNewCliente get(): Boolean = clienteId <= 0
     val isSuccessLoading get(): Boolean = !isLoading && !hasErrorLoading
@@ -248,11 +251,29 @@ class ClienteFormViewModel(
                 )
             )
             uiState = try {
-                ApiService.clientes.save(cliente)
-                uiState.copy(
-                    isSaving = false,
-                    clienteSaved = true
-                )
+                val response = ApiService.clientes.save(cliente)
+                if (response.isSuccessful) {
+                    uiState.copy(
+                        isSaving = false,
+                        clienteSaved = true
+                    )
+                } else if (response.code() == 400) {
+                    val error = Json.parseToJsonElement(response.errorBody()!!.string())
+                    val jsonObject = error.jsonObject
+                    val apiValidationError =
+                        jsonObject.keys.joinToString("\n") {
+                            jsonObject[it].toString().replace("\"", "")
+                        }
+                    uiState.copy(
+                        isSaving = false,
+                        apiValidationError = apiValidationError
+                    )
+                } else {
+                    uiState.copy(
+                        isSaving = false,
+                        hasErrorSaving = true
+                    )
+                }
             } catch (ex: Exception) {
                 Log.d(tag, "Erro ao salvar cliente com código $clienteId", ex)
                 uiState.copy(
@@ -285,8 +306,10 @@ class ClienteFormViewModel(
         )
         return uiState.formState.isValid
     }
+
+    fun dismissInformationDialog() {
+        uiState = uiState.copy(
+            apiValidationError = ""
+        )
+    }
 }
-
-
-
-
