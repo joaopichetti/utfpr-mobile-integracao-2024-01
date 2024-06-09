@@ -40,6 +40,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import br.edu.utfpr.apppedidos.R
 import br.edu.utfpr.apppedidos.data.cliente.Cliente
 import br.edu.utfpr.apppedidos.data.cliente.Endereco
+import br.edu.utfpr.apppedidos.extensions.toFormattedCep
+import br.edu.utfpr.apppedidos.extensions.toFormattedCpf
+import br.edu.utfpr.apppedidos.extensions.toFormattedTelefone
 import br.edu.utfpr.apppedidos.ui.theme.AppPedidosTheme
 import br.edu.utfpr.apppedidos.ui.utils.composables.DefaultErrorLoading
 import br.edu.utfpr.apppedidos.ui.utils.composables.DefaultLoading
@@ -222,17 +225,17 @@ fun ClienteDetails(
         )
         ClienteAttribute(
             attributeName = stringResource(R.string.cpf),
-            attributeValue = cliente.cpf
+            attributeValue = cliente.cpf.toFormattedCpf()
         )
         ClienteAttribute(
             attributeName = stringResource(R.string.telefone),
-            attributeValue = cliente.telefone
+            attributeValue = cliente.telefone.toFormattedTelefone()
         )
         HorizontalDivider(modifier = Modifier.padding(top = 8.dp))
         ClienteTitle(text = stringResource(R.string.endereco))
         ClienteAttribute(
             attributeName = stringResource(R.string.cep),
-            attributeValue = cliente.endereco.cep
+            attributeValue = cliente.endereco.cep.toFormattedCep()
         )
         ClienteAttribute(
             attributeName = stringResource(R.string.logradouro),

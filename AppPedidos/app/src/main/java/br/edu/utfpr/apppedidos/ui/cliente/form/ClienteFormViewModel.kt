@@ -129,12 +129,13 @@ class ClienteFormViewModel(
     }
 
     fun onCpfChanged(value: String) {
-        if (uiState.formState.cpf.value != value) {
+        val newCpf = value.replace(Regex("\\D"), "")
+        if (newCpf.length <= 11 && uiState.formState.cpf.value != newCpf) {
             uiState = uiState.copy(
                 formState = uiState.formState.copy(
                     cpf = uiState.formState.cpf.copy(
-                        value = value,
-                        errorMessageCode = validateCpf(value)
+                        value = newCpf,
+                        errorMessageCode = validateCpf(newCpf)
                     )
                 )
             )
@@ -151,12 +152,13 @@ class ClienteFormViewModel(
     }
 
     fun onTelefoneChanged(value: String) {
-        if (uiState.formState.telefone.value != value) {
+        val newTelefone = value.replace(Regex("\\D"), "")
+        if (newTelefone.length <= 11 && uiState.formState.telefone.value != newTelefone) {
             uiState = uiState.copy(
                 formState = uiState.formState.copy(
                     telefone = uiState.formState.telefone.copy(
-                        value = value,
-                        errorMessageCode = validateTelefone(value)
+                        value = newTelefone,
+                        errorMessageCode = validateTelefone(newTelefone)
                     )
                 )
             )
@@ -173,15 +175,70 @@ class ClienteFormViewModel(
     }
 
     fun onCepChanged(value: String) {
-        if (uiState.formState.cep.value != value) {
-            uiState = uiState.copy(
-                formState = uiState.formState.copy(
-                    cep = uiState.formState.cep.copy(
-                        value = value,
-                        errorMessageCode = validateCep(value)
+        val newCep = value.replace(Regex("\\D"), "")
+        if (newCep.length <= 8 && uiState.formState.cep.value != newCep) {
+            val validationMessageCode = validateCep(newCep)
+            val isSearchingCep = validationMessageCode == null && newCep.length == 8
+            if (isSearchingCep) {
+                uiState = uiState.copy(
+                    formState = uiState.formState.copy(
+                        cep = uiState.formState.cep.copy(
+                            value = newCep,
+                            errorMessageCode = null
+                        ),
+                        logradouro = uiState.formState.logradouro.copy(
+                            value = ""
+                        ),
+                        bairro = uiState.formState.bairro.copy(
+                            value = ""
+                        ),
+                        cidade = uiState.formState.cidade.copy(
+                            value = ""
+                        ),
+                        isSearchingCep = true
                     )
                 )
-            )
+                viewModelScope.launch {
+                    delay(2000)
+                    uiState = try {
+                        val cep = ApiService.cep.findByCep(newCep)
+                        uiState.copy(
+                            formState = uiState.formState.copy(
+                                logradouro = uiState.formState.logradouro.copy(
+                                    value = cep.logradouro
+                                ),
+                                bairro = uiState.formState.bairro.copy(
+                                    value = cep.bairro
+                                ),
+                                cidade = uiState.formState.cidade.copy(
+                                    value = cep.cidadeUf
+                                ),
+                                isSearchingCep = false
+                            )
+                        )
+                    } catch (ex: Exception) {
+                        Log.d(tag, "Erro ao consultar o CEP $newCep", ex)
+                        uiState.copy(
+                            formState = uiState.formState.copy(
+                                isSearchingCep = false,
+                                cep = uiState.formState.cep.copy(
+                                    errorMessageCode = R.string.erro_ao_consultar_cep
+                                )
+                            )
+                        )
+                    }
+                }
+            } else {
+                uiState = uiState.copy(
+                    formState = uiState.formState.copy(
+                        cep = uiState.formState.cep.copy(
+                            value = newCep,
+                            errorMessageCode = validationMessageCode
+                        ),
+                        isSearchingCep = false
+                    )
+                )
+            }
         }
     }
 

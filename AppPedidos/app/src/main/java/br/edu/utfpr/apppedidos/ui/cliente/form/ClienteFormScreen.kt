@@ -47,6 +47,9 @@ import br.edu.utfpr.apppedidos.R
 import br.edu.utfpr.apppedidos.ui.theme.AppPedidosTheme
 import br.edu.utfpr.apppedidos.ui.utils.composables.DefaultErrorLoading
 import br.edu.utfpr.apppedidos.ui.utils.composables.DefaultLoading
+import br.edu.utfpr.apppedidos.ui.utils.visualtransformations.CepVisualTransformation
+import br.edu.utfpr.apppedidos.ui.utils.visualtransformations.CpfVisualTransformation
+import br.edu.utfpr.apppedidos.ui.utils.visualtransformations.TelefoneVisualTransformation
 
 @Composable
 fun ClienteFormScreen(
@@ -235,14 +238,16 @@ private fun FormContent(
             value = formState.cpf.value,
             onValueChanged = onCpfChanged,
             errorMessageCode = formState.cpf.errorMessageCode,
-            keyboardType = KeyboardType.Number
+            keyboardType = KeyboardType.Number,
+            visualTransformation = CpfVisualTransformation()
         )
         FormTextField(
             label = stringResource(R.string.telefone),
             value = formState.telefone.value,
             onValueChanged = onTelefoneChanged,
             errorMessageCode = formState.telefone.errorMessageCode,
-            keyboardType = KeyboardType.Phone
+            keyboardType = KeyboardType.Phone,
+            visualTransformation = TelefoneVisualTransformation()
         )
         HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
         FormTitle(text = stringResource(R.string.endereco))
@@ -251,7 +256,19 @@ private fun FormContent(
             value = formState.cep.value,
             onValueChanged = onCepChanged,
             errorMessageCode = formState.cep.errorMessageCode,
-            keyboardType = KeyboardType.Number
+            keyboardType = KeyboardType.Number,
+            enabled = !formState.isSearchingCep,
+            visualTransformation = CepVisualTransformation(),
+            trailingIcon = {
+                if (formState.isSearchingCep) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(60.dp)
+                            .padding(all = 16.dp),
+                        strokeWidth = 2.dp
+                    )
+                }
+            }
         )
         FormTextField(
             label = stringResource(R.string.logradouro),
