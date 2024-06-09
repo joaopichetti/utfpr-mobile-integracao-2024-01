@@ -8,7 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.edu.utfpr.apppedidos.data.cliente.Cliente
-import br.edu.utfpr.apppedidos.data.cliente.network.ApiClientes
+import br.edu.utfpr.apppedidos.data.network.ApiService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -46,7 +46,7 @@ class ClienteDetailsViewModel(
             uiState = try {
                 uiState.copy(
                     isLoading = false,
-                    cliente = ApiClientes.retrofitService.findById(clienteId)
+                    cliente = ApiService.clientes.findById(clienteId)
                 )
             } catch (ex: Exception) {
                 Log.d(tag, "Erro ao carregar dados do cliente com id $clienteId", ex)
@@ -79,7 +79,7 @@ class ClienteDetailsViewModel(
         viewModelScope.launch {
             uiState = try {
                 delay(2000)
-                ApiClientes.retrofitService.delete(clienteId)
+                ApiService.clientes.delete(clienteId)
                 uiState.copy(
                     isDeleting = false,
                     clienteDeleted = true

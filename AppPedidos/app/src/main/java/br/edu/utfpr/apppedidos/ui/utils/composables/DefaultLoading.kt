@@ -18,7 +18,7 @@ import br.edu.utfpr.apppedidos.R
 import br.edu.utfpr.apppedidos.ui.theme.AppPedidosTheme
 
 @Composable
-fun DefaultLoaing(
+fun DefaultLoading(
     modifier: Modifier = Modifier,
     text: String
 ) {
@@ -45,7 +45,7 @@ fun DefaultLoaing(
 @Composable
 private fun LoadingClientesPreview() {
     AppPedidosTheme {
-        DefaultLoaing(
+        DefaultLoading(
             text = stringResource(R.string.carregando)
         )
     }

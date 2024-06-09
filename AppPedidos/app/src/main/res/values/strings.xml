@@ -20,4 +20,26 @@
     <string name="atencao">Atenção</string>
     <string name="confirmar_remover_cliente">Ao confirmar, esse cliente será removido e não poderá ser recuperado.</string>
     <string name="erro_remover_cliente">Não foi possível remover o cliente. Aguarde um momento e tente novamente.</string>
+    <string name="novo_cliente">Novo Cliente</string>
+    <string name="editar_cliente">Editar Cliente</string>
+    <string name="salvar">Salvar</string>
+    <string name="nome">Nome</string>
+    <string name="cpf">CPF</string>
+    <string name="telefone">Telefone</string>
+    <string name="endereco">Endereço</string>
+    <string name="cep">CEP</string>
+    <string name="logradouro">Logradouro</string>
+    <string name="numero">Número</string>
+    <string name="complemento">Complemento</string>
+    <string name="bairro">Bairro</string>
+    <string name="cidade">Cidade</string>
+    <string name="nome_obrigatorio">O nome é obrigatório</string>
+    <string name="cpf_obrigatorio">O CPF é obrigatório</string>
+    <string name="cpf_invalido">Informe um CPF válido</string>
+    <string name="telefone_obrigatorio">O telefone é obrigatório</string>
+    <string name="telefone_invalido">Informe um telefone válido</string>
+    <string name="cep_obrigatorio">O CEP é obrigatório</string>
+    <string name="cep_invalido">Informe um CEP válido</string>
+    <string name="numero_obrigatorio">O número é obrigatório</string>
+    <string name="erro_salvar_cliente">Não foi possível salvar o cliente. Aguarde um momento e tente novamente</string>
 </resources>

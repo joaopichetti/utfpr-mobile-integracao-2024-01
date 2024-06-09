@@ -33,13 +33,14 @@ import br.edu.utfpr.apppedidos.R
 import br.edu.utfpr.apppedidos.data.cliente.Cliente
 import br.edu.utfpr.apppedidos.ui.theme.AppPedidosTheme
 import br.edu.utfpr.apppedidos.ui.utils.composables.DefaultErrorLoading
-import br.edu.utfpr.apppedidos.ui.utils.composables.DefaultLoaing
+import br.edu.utfpr.apppedidos.ui.utils.composables.DefaultLoading
 
 @Composable
 fun ClientesListScreen(
     modifier: Modifier = Modifier,
     viewModel: ClientesListViewModel = viewModel(),
-    onClientePressed: (Cliente) -> Unit
+    onClientePressed: (Cliente) -> Unit,
+    onAddPressed: () -> Unit
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -51,7 +52,7 @@ fun ClientesListScreen(
         },
         floatingActionButton = {
             if (viewModel.uiState.success) {
-                FloatingActionButton(onClick = { /*TODO*/ }) {
+                FloatingActionButton(onClick = onAddPressed) {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = stringResource(R.string.adicionar)
@@ -61,7 +62,7 @@ fun ClientesListScreen(
         }
     ) { paddingValues ->
         if (viewModel.uiState.loading) {
-            DefaultLoaing(
+            DefaultLoading(
                 modifier = Modifier.padding(paddingValues),
                 text = "${stringResource(R.string.carregando_clientes)}..."
             )

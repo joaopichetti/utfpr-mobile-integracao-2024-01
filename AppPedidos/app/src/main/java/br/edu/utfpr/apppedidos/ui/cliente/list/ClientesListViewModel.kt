@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.edu.utfpr.apppedidos.data.cliente.Cliente
 import br.edu.utfpr.apppedidos.data.cliente.Endereco
-import br.edu.utfpr.apppedidos.data.cliente.network.ApiClientes
+import br.edu.utfpr.apppedidos.data.network.ApiService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -36,7 +36,7 @@ class ClientesListViewModel : ViewModel() {
         viewModelScope.launch {
             delay(2000)
             uiState = try {
-                val clientes = ApiClientes.retrofitService.findAll()
+                val clientes = ApiService.clientes.findAll()
                 uiState.copy(
                     clientes = clientes,
                     loading = false
