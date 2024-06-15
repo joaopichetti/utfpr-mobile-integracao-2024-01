@@ -61,4 +61,9 @@
     <string name="verificando_usuario">Verificando usuário</string>
     <string name="carregando_chats">Carregando chats</string>
     <string name="erro_carregar_conversas">Não foi possível carregar suas conversas</string>
+    <string name="enviar">Enviar</string>
+    <string name="envie_sua_primeira_mensagem">Envie sua primeira mensagem</string>
+    <string name="erro_enviar_mensagem">Não foi possível enviar a mensagem. Aguarde um momento e tente novamente</string>
+    <string name="carregando_mensagens">Carregando mensagens</string>
+    <string name="erro_carregar_mensagens">Não foi possível carregar as mensagens</string>
 </resources>

@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import br.edu.utfpr.apppedidos.ui.chat.chat.ChatScreen
 import br.edu.utfpr.apppedidos.ui.chat.list.ChatListScreen
 import br.edu.utfpr.apppedidos.ui.cliente.details.ClienteDetailsScreen
 import br.edu.utfpr.apppedidos.ui.cliente.form.ClienteFormScreen
@@ -28,6 +29,7 @@ private object Screens {
     const val CLIENTE_DETAILS = "clienteDetails"
     const val CLIENTE_FORM = "clienteForm"
     const val LIST_CHAT = "listChat"
+    const val CHAT = "chat"
 }
 
 object Arguments {
@@ -40,6 +42,7 @@ private object Routes {
     const val CLIENTE_DETAILS = "${Screens.CLIENTE_DETAILS}/{${Arguments.ID}}"
     const val CLIENTE_FORM = "${Screens.CLIENTE_FORM}?${Arguments.ID}={${Arguments.ID}}"
     const val LIST_CHAT = Screens.LIST_CHAT
+    const val CHAT = "${Screens.CHAT}/{${Arguments.CHAT_ID}}"
 }
 
 @Composable
@@ -121,12 +124,26 @@ fun AppPedidos(
             ) {
                 ChatListScreen(
                     onNewChatPressed = {},
-                    onChatPressed = { chat -> },
+                    onChatPressed = { chat ->
+                        navController.navigate("${Screens.CHAT}/${chat.id}")
+                    },
                     openDrawer = {
                         coroutineScope.launch { drawerState.open() }
                     }
                 )
             }
+        }
+        composable(
+            route = Routes.CHAT,
+            arguments = listOf(
+                navArgument(name = Arguments.CHAT_ID) { type = NavType.IntType }
+            )
+        ) {
+            ChatScreen(
+                onBackPressed = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

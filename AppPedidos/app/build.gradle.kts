@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "br.edu.utfpr.apppedidos"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -85,6 +85,11 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.datastore)
     implementation(libs.protobuf.java.lite)
+    implementation(libs.krossbow.stomp.core)
+    implementation(libs.krossbow.websocket.builtin)
+    implementation(libs.krossbow.stomp.kxserialization.json)
+    implementation(libs.krossbow.websocket.ktor)
+    implementation(libs.ktor.client.cio)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

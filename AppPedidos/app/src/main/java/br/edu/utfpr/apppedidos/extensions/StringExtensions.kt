@@ -1,5 +1,8 @@
 package br.edu.utfpr.apppedidos.extensions
 
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
 fun String.toFormattedCep(): String = this.mapIndexed { index, char ->
     if (index == 5) {
         "-$char"
@@ -25,3 +28,9 @@ fun String.toFormattedTelefone(): String = this.mapIndexed { index, char ->
         else -> char
     }
 }.joinToString("")
+
+fun String.toFormat(pattern: String): String = try {
+    ZonedDateTime.parse(this).format(DateTimeFormatter.ofPattern(pattern))
+} catch (ex: Exception) {
+    this
+}

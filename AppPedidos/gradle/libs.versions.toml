@@ -14,6 +14,8 @@ navigationCompose = "2.7.7"
 protobufVersion = "0.9.4"
 protobufJavaVersion = "4.27.1"
 androidxDatastoreVersion = "1.1.1"
+krossbowVersion = "7.0.0"
+ktorClientVersion = "2.3.10"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +41,11 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDatastoreVersion" }
 protobuf-java-lite = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "protobufJavaVersion" }
+krossbow-stomp-core = { group = "org.hildan.krossbow", name = "krossbow-stomp-core", version.ref = "krossbowVersion" }
+krossbow-websocket-builtin = { group = "org.hildan.krossbow", name = "krossbow-websocket-builtin", version.ref = "krossbowVersion" }
+krossbow-stomp-kxserialization-json = { group = "org.hildan.krossbow", name = "krossbow-stomp-kxserialization-json", version.ref = "krossbowVersion" }
+krossbow-websocket-ktor = { group = "org.hildan.krossbow", name = "krossbow-websocket-ktor", version.ref="krossbowVersion" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktorClientVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
