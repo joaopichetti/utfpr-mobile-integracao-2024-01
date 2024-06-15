@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import br.edu.utfpr.apppedidos.ui.chat.chat.ChatScreen
 import br.edu.utfpr.apppedidos.ui.chat.list.ChatListScreen
+import br.edu.utfpr.apppedidos.ui.chat.newchat.NewChatScreen
 import br.edu.utfpr.apppedidos.ui.cliente.details.ClienteDetailsScreen
 import br.edu.utfpr.apppedidos.ui.cliente.form.ClienteFormScreen
 import br.edu.utfpr.apppedidos.ui.cliente.list.ClientesListScreen
@@ -30,6 +31,7 @@ private object Screens {
     const val CLIENTE_FORM = "clienteForm"
     const val LIST_CHAT = "listChat"
     const val CHAT = "chat"
+    const val NEW_CHAT = "newChat"
 }
 
 object Arguments {
@@ -43,6 +45,7 @@ private object Routes {
     const val CLIENTE_FORM = "${Screens.CLIENTE_FORM}?${Arguments.ID}={${Arguments.ID}}"
     const val LIST_CHAT = Screens.LIST_CHAT
     const val CHAT = "${Screens.CHAT}/{${Arguments.CHAT_ID}}"
+    const val NEW_CHAT = Screens.NEW_CHAT
 }
 
 @Composable
@@ -123,7 +126,9 @@ fun AppPedidos(
                 onChatsPressed = { navigateToListChats(navController) }
             ) {
                 ChatListScreen(
-                    onNewChatPressed = {},
+                    onNewChatPressed = {
+                       navController.navigate(Routes.NEW_CHAT)
+                    },
                     onChatPressed = { chat ->
                         navController.navigate("${Screens.CHAT}/${chat.id}")
                     },
@@ -142,6 +147,17 @@ fun AppPedidos(
             ChatScreen(
                 onBackPressed = {
                     navController.popBackStack()
+                }
+            )
+        }
+        composable(route = Routes.NEW_CHAT) {
+            NewChatScreen(
+                onBackPressed = {
+                    navController.popBackStack()
+                },
+                onChatStarted = { chat ->
+                    navigateToListChats(navController)
+                    navController.navigate("${Screens.CHAT}/${chat.id}")
                 }
             )
         }

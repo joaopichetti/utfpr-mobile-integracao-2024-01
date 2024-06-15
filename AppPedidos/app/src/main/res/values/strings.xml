@@ -66,4 +66,10 @@
     <string name="erro_enviar_mensagem">Não foi possível enviar a mensagem. Aguarde um momento e tente novamente</string>
     <string name="carregando_mensagens">Carregando mensagens</string>
     <string name="erro_carregar_mensagens">Não foi possível carregar as mensagens</string>
+    <string name="selecione_um_usurio">Selecione um usuário</string>
+    <string name="nenhum_usuario_encontrado">Nenhum usuário encontrado</string>
+    <string name="erro_iniciar_conversa">Não foi possível iniciar a conversa. Aguarde um momento e tente novamente.</string>
+    <string name="carregando_usuarios">Carregando usuários</string>
+    <string name="iniciando_conversa">Iniciando conversa</string>
+    <string name="erro_carregar_usuarios">Não foi possível carregar os usuários</string>
 </resources>
