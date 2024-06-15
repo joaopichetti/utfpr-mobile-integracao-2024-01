@@ -1,7 +1,10 @@
+import com.google.protobuf.gradle.id
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.google.protobuf)
 }
 
 android {
@@ -50,6 +53,19 @@ android {
     }
 }
 
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:4.27.1" }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                id("java") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -67,6 +83,8 @@ dependencies {
     implementation(libs.squareup.okhttp3)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.datastore)
+    implementation(libs.protobuf.java.lite)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

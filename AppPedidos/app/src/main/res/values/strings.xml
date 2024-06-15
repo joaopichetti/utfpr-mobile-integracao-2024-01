@@ -45,4 +45,20 @@
     <string name="mensagem_retornada_do_servidor">A seguinte mensagem foi retornada do servidor</string>
     <string name="ok">OK</string>
     <string name="erro_ao_consultar_cep">Não foi possível consultar o CEP. Aguarde um momento e tente novamente.</string>
+    <string name="nova_mensagem">Nova mensagem</string>
+    <string name="abrir_menu">Abrir menu</string>
+    <string name="sair">Sair</string>
+    <string name="mensagens">Mensagens</string>
+    <string name="dica_acessar_chat">Informe seu e-mail para visualizar suas mensagens</string>
+    <string name="email">E-mail</string>
+    <string name="acessar">Acessar</string>
+    <string name="nenhuma_conversa_localizada">Você não iniciou nenhuma conversa</string>
+    <string name="dica_iniciar_conversa">Inicie a primeira pressionando o \"+\"</string>
+    <string name="selecionar">Selecionar</string>
+    <string name="email_invalido">O e-mail informado é inválido</string>
+    <string name="usuario_nao_encontrado">Não foi localizado nenhum usuário com o e-mail informado. Verifique seu e-mail e tente novamente</string>
+    <string name="erro_ao_acessar_o_chat">Ocorreu um erro ao acessar o chat. Aguarde um momento e tente novamente</string>
+    <string name="verificando_usuario">Verificando usuário</string>
+    <string name="carregando_chats">Carregando chats</string>
+    <string name="erro_carregar_conversas">Não foi possível carregar suas conversas</string>
 </resources>

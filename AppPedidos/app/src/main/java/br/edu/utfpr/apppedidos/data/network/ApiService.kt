@@ -1,7 +1,9 @@
 package br.edu.utfpr.apppedidos.data.network
 
 import br.edu.utfpr.apppedidos.data.cep.network.ApiCepService
+import br.edu.utfpr.apppedidos.data.chat.network.ApiChatService
 import br.edu.utfpr.apppedidos.data.cliente.network.ApiClientesService
+import br.edu.utfpr.apppedidos.data.usuario.network.ApiUsuarioService
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
@@ -28,5 +30,11 @@ object ApiService {
     }
     val cep: ApiCepService by lazy {
         apiCepClient.create(ApiCepService::class.java)
+    }
+    val usuarios: ApiUsuarioService by lazy {
+        apiPedidosClient.create(ApiUsuarioService::class.java)
+    }
+    val chat: ApiChatService by lazy {
+        apiPedidosClient.create(ApiChatService::class.java)
     }
 }

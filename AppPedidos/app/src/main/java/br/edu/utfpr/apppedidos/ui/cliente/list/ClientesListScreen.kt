@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -40,14 +41,16 @@ fun ClientesListScreen(
     modifier: Modifier = Modifier,
     viewModel: ClientesListViewModel = viewModel(),
     onClientePressed: (Cliente) -> Unit,
-    onAddPressed: () -> Unit
+    onAddPressed: () -> Unit,
+    openDrawer: () -> Unit
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
             ClientesTopBar(
                 onRefresh = viewModel::load,
-                showRefreshAction = viewModel.uiState.success
+                showRefreshAction = viewModel.uiState.success,
+                openDrawer = openDrawer
             )
         },
         floatingActionButton = {
@@ -87,7 +90,8 @@ fun ClientesListScreen(
 private fun ClientesTopBar(
     modifier: Modifier = Modifier,
     onRefresh: () -> Unit,
-    showRefreshAction: Boolean
+    showRefreshAction: Boolean,
+    openDrawer: () -> Unit
 ) {
     TopAppBar(
         modifier = modifier,
@@ -96,6 +100,14 @@ private fun ClientesTopBar(
             titleContentColor = MaterialTheme.colorScheme.primary
         ),
         title = { Text(stringResource(R.string.clientes)) },
+        navigationIcon = {
+            IconButton(onClick = openDrawer) {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = stringResource(R.string.abrir_menu)
+                )
+            }
+        },
         actions = {
             if (showRefreshAction) {
                 IconButton(onClick = onRefresh) {
@@ -115,7 +127,8 @@ private fun ClientesTopBarPreview() {
     AppPedidosTheme {
         ClientesTopBar(
             onRefresh = {},
-            showRefreshAction = true
+            showRefreshAction = true,
+            openDrawer = {}
         )
     }
 }
